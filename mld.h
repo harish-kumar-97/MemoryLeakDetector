@@ -62,8 +62,6 @@ typedef struct _struct_db_ {
 /* Structure data base definition ends */
 
 
-
-
 /* printing functions */
 void print_structure_rec(struct_db_rec_t *struct_rec);
 void print_structure_db(struct_db_t *struct_db);
