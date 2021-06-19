@@ -37,7 +37,7 @@
  */
 
 #ifndef __MLD__
-#include <assert.g>
+#include <assert.h>
 #include <string.h>
 
 
@@ -49,7 +49,7 @@
 /* Enumeration for data types */
 typedef enum {
 	UINT8,
-	UINT12,
+	UINT32,
 	INT32,
 	CHAR,
 	OBJ_PTR,
@@ -79,7 +79,7 @@ typedef struct _field_info {
 	unsigned int size;			/* Size of the field */
 	unsigned int offset;			/* Offset of the field */
 	// Below field is meaningful only if dtype = OBJ_PTR or OBJ_STRUCT
-	char nested_str_name[MAX_STRUCTURE_NAME_SIZE]
+	char nested_str_name[MAX_STRUCTURE_NAME_SIZE];
 } field_info_t;
 
 /* Structure to store the information of one C structure which could have 'n_fields' fields */

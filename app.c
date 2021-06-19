@@ -64,29 +64,28 @@ typedef struct student_ {
 int main(int argc, char **argv) {
 	/* Step 1: Initlialize a new structure database */
 	struct_db_t *struct_db = calloc(1, sizeof(struct_db_t));
-	mld_init_primitive_data_types_support(struct_db);
+	//mld_init_primitive_data_types_support(struct_db);
 
 	/* Step 2: Create structure record fo structure emp_t */
 	static field_info_t emp_fields[] = {
-		FIELD_INFO(emp_t, emp_name, CHAR, 0);
-		FIELD_INFO(emp_t, emp_id, UINT32, 0);
-		FIELD_INFO(emp_t, age, UINT32, 0);
-		FIELD_INFO(emp_t, mgr, OBJ_PTR, 0);
-		FIELD_INFO(emp_t, salary, FLOAT, 0);
-		FIELD_INFO(emp_t, p, OBJ_PTR, 0);
-
-	}
+		FIELD_INFO(emp_t, emp_name, CHAR, 0),
+		FIELD_INFO(emp_t, emp_id, UINT32, 0),
+		FIELD_INFO(emp_t, age, UINT32, 0),
+		FIELD_INFO(emp_t, mgr, OBJ_PTR, 0),
+		FIELD_INFO(emp_t, salary, FLOAT, 0),
+		FIELD_INFO(emp_t, p, OBJ_PTR, 0)
+	};
 
 	/* Step 3: Register the structure in structure database */
 	REG_STRUCT(struct_db, emp_t, emp_fields);
 
 	static field_info_t stud_fields[] = {
-		FIELD_INFO(student_t, stud_name, CHAR, 0);
-		FIELD_INFO(student_t, rollno, UINT32, 0);
-		FIELD_INFO(student_t, age, UINT32, 0);
-		FIELD_INFO(student_t, aggregate, FLOAT, 0);
-		FIELD_INFO(student_t, best_colleage, OBJ_PTR, student_t);
-	}
+		FIELD_INFO(student_t, stud_name, CHAR, 0),
+		FIELD_INFO(student_t, rollno, UINT32, 0),
+		FIELD_INFO(student_t, age, UINT32, 0),
+		FIELD_INFO(student_t, aggregate, FLOAT, 0),
+		FIELD_INFO(student_t, best_colleage, OBJ_PTR, student_t)
+	};
 	REG_STRUCT(struct_db, student_t, stud_fields);
 	
 	/* Verify the structure database by printing it */
