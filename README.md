@@ -1,1 +1,1 @@
-# memory-leak-detector
+# MemoryLeakDetector
