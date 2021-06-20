@@ -95,3 +95,84 @@ int add_structure_to_struct_db(struct_db_t *struct_db, struct_db_rec_t *struct_r
 	struct_db->count++;
 	return 0;
 }
+
+static struct_db_rec_t
+*struct_db_look_up(struct_db_t *struct_db,
+			char *struct_name) {
+	struct_db_rec_t *head = struct_db->head;
+	if(!head) return NULL;
+	for(; head; head = head->next) {
+		if(strncmp(head->struct_name, struct_name, MAX_STRUCTURE_NAME_SIZE) == 0)
+			return head;
+	}
+	return NULL;
+}
+
+static object_db_rec_t
+*object_db_look_up(object_db_t *object_db, void *ptr) {
+	object_db_rec_t *head = object->head;
+	if(!head) return NULL;
+	for (; head; head = head->next) {
+		if(head->ptr == ptr)
+			return head;
+	}
+	return NULL;
+}
+
+/* To work with objects */
+static void add_object_to_object_db(object_db_t *object_db,
+				void *ptr,
+				int units,
+				struct_db_rec_t *struct_rec,
+				mld_boolean_t is_root) {
+	object_db_rec_t *obj_rec = object_db_look_up(object_db, ptr);
+	/* Don't add same object twice */
+	assert(!obj_rec);
+	
+	obj_rec = calloc(1, sizeof(object_db_rec_t));
+	
+	obj_rec->next = NULL;
+	obj_rec->ptr = ptr;
+	obj_rec->units = units;
+	obj_rec->struct_rec = struct_rec;
+	obj_rec->is_visited = MLD_FALSE;
+	obj_rec->is_root = is_root;
+
+	object_db_rec_t *head = object_db->head;
+
+	if(!head) {
+		object_db->head = obj_rec;
+		object->next = NULL;
+		object_db->count++;
+		return;
+	}
+	obj_rec->next = head;
+	object_db->head = obj_rec;
+	object_db->count++;
+}
+
+void *xcalloc(object_db_t *object_db, char *struct_name, int uints) {
+	struct_db_rec_t *struct_rec = struct_db_look_up(object_db->struct_db, struct_name);
+	assert(struct_rec);
+	
+	void *ptr = calloc(uints, struct_rec->ds_size);
+	add_object_to_object_db(object_db, ptr, uints, strutc_rec, MLD_FALSE);
+	return ptr;
+}
+
+/* Print functions for object database */
+void print_object_rec(object_db_rec_t *obj_rec, int i) {
+	if(!obj_rec) return;
+	printf(ANSI_COLOR_MAGENTA "--------------------------|\n" ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_YELLOW "%-3d ptr = %-10p | next = %-10p | units = %-4d | struct_name = %-10s | is_root = %s |\n" ANSI_COLOR_RESET, i, obj_rec->ptr, obj_rec->next, obj_rec->units, obj_rec->struct_rec->struct_name, obj_rec->is_root ? "TRUE" : "FALSE");
+	printf(ANSI_COLOR_MAGENTA "--------------------------|\n" ANSI_COLOR_RESET);
+}
+
+void print_object_db(object_db_t *object_db) {
+	object_db_rec_t *head = object_db->head;
+	unsigned int i = 0;
+	printf(ANSI_COLOR_CYAN "Printing OBJECT DATABASE\n");
+	for(; head; head->next) {
+		print_object_rec(head, i++);
+	}
+}

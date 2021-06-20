@@ -88,6 +88,21 @@ int main(int argc, char **argv) {
 	};
 	REG_STRUCT(struct_db, student_t, stud_fields);
 	
-	/* Verify the structure database by printing it */
+	/* Step 4: Verify the structure database by printing it */
 	print_structure_db(struct_db);
+
+	
+	/* Working with object database */
+	/* Step 1: Initialize a new Object database */
+	object_db_t *object_db = calloc(1, sizeof(object_db_t));
+	object_db->struct_db = struct_db;
+
+	/* Step 2: Create some sample objects, equivalent to standard 
+	   calloc(1, sizeof(student_t) */
+	student_t *studA = xcalloc(object_db, "student_t", 1);
+	student_t *studB = xcalloc(object_db, "student_t", 1);
+	emp_t *empA = xcalloc(object_db, "emp_t", 2);
+
+	print_object_db(object_db);
+	return 0;
 }
