@@ -68,10 +68,10 @@ void print_structure_rec(struct_db_rec_t *struct_rec) {
 void print_structure_db(struct_db_t *struct_db) {
 	if(!struct_db) return;
 
-	printf("Printing Structure Database");
+	printf("\n" ANSI_COLOR_RED "Printing Structure Database" ANSI_COLOR_RESET);
 	struct_db_rec_t *struct_rec = NULL;
 	struct_rec = struct_db->head;
-	printf("No of Structures Registered = %d\n", struct_db->count);
+	printf("\nNo of Structures Registered = %d\n", struct_db->count);
 	int i = 0;
 	while(struct_rec) {
 		printf("structure no : %d (%p)\n", i++, struct_rec);
@@ -110,7 +110,7 @@ static struct_db_rec_t
 
 static object_db_rec_t
 *object_db_look_up(object_db_t *object_db, void *ptr) {
-	object_db_rec_t *head = object->head;
+	object_db_rec_t *head = object_db->head;
 	if(!head) return NULL;
 	for (; head; head = head->next) {
 		if(head->ptr == ptr)
@@ -142,7 +142,6 @@ static void add_object_to_object_db(object_db_t *object_db,
 
 	if(!head) {
 		object_db->head = obj_rec;
-		object->next = NULL;
 		object_db->count++;
 		return;
 	}
@@ -156,23 +155,23 @@ void *xcalloc(object_db_t *object_db, char *struct_name, int uints) {
 	assert(struct_rec);
 	
 	void *ptr = calloc(uints, struct_rec->ds_size);
-	add_object_to_object_db(object_db, ptr, uints, strutc_rec, MLD_FALSE);
+	add_object_to_object_db(object_db, ptr, uints, struct_rec, MLD_FALSE);
 	return ptr;
 }
 
 /* Print functions for object database */
 void print_object_rec(object_db_rec_t *obj_rec, int i) {
 	if(!obj_rec) return;
-	printf(ANSI_COLOR_MAGENTA "--------------------------|\n" ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_MAGENTA "-------------------------------------------------------------------------------------------------------------|\n" ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_YELLOW "%-3d ptr = %-10p | next = %-10p | units = %-4d | struct_name = %-10s | is_root = %s |\n" ANSI_COLOR_RESET, i, obj_rec->ptr, obj_rec->next, obj_rec->units, obj_rec->struct_rec->struct_name, obj_rec->is_root ? "TRUE" : "FALSE");
-	printf(ANSI_COLOR_MAGENTA "--------------------------|\n" ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_MAGENTA "-------------------------------------------------------------------------------------------------------------|\n" ANSI_COLOR_RESET);
 }
 
 void print_object_db(object_db_t *object_db) {
 	object_db_rec_t *head = object_db->head;
 	unsigned int i = 0;
-	printf(ANSI_COLOR_CYAN "Printing OBJECT DATABASE\n");
-	for(; head; head->next) {
+	printf("\n" ANSI_COLOR_CYAN "PRINTING OBJECT DATABASE\n" ANSI_COLOR_RESET);
+	for(; head; head = head->next) {
 		print_object_rec(head, i++);
 	}
 }
