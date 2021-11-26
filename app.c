@@ -100,9 +100,17 @@ int main(int argc, char **argv) {
 	/* Step 2: Create some sample objects, equivalent to standard 
 	   calloc(1, sizeof(student_t) */
 	student_t *studA = xcalloc(object_db, "student_t", 1);
+	mld_set_dynamic_object_as_root(object_db, studA);
+
 	student_t *studB = xcalloc(object_db, "student_t", 1);
+	strncpy(studB->stud_name, "harish", strlen("harish"));
+
 	emp_t *empA = xcalloc(object_db, "emp_t", 2);
 
 	print_object_db(object_db);
+
+	run_mld_algorithm(object_db);
+	
+	report_leaked_objects(object_db);
 	return 0;
 }
