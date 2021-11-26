@@ -10,3 +10,6 @@ A garbage collector for C, works based on the principle of reachability of objec
 
 3. Clean the binaries as follows: <br />
 &nbsp;&nbsp;`$ make clean` <br />
+
+4. Output Screenshot:
+![Output Screenshot](https://github.com/harishkumar101/MemoryLeakDetector/blob/main/memleakdetector.png?raw=true)
