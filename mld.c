@@ -10,8 +10,8 @@
  *	Revision: 1.0
  *	Compiler: gcc
  *
- *	Author: Harish Kumar, Embedded System Software Devleloper, harishec031@gmail.com
- *	Company: Cisco Systems, Inc(Mar 2021-Present), NXP Semiconductors(Apr 2019-Dec 2020)
+ *	Author: Harish Kumar, Linux Developer, harishec031@gmail.com
+ *	Company: Cisco Systems, Inc(Mar 2021-Present)
  *	
  *	Copyright (c) 2021 Harish Kumar
 
