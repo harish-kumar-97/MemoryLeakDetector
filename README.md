@@ -1,10 +1,12 @@
-# MemoryLeakDetector
+# Design and Implementation of Java-like Garbage Collector for C
+A garbage collector for C, works based on the principle of reachability of objects to detect memory leaks.
 
-Compile the code as follows:<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gcc -c mld.c -o mld.o<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gcc -c app.c -o app.o<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gcc -g -o a.out mld.o app.o
+1. Clone the source code as follows: <br />
+&nbsp;&nbsp;`$ git clone https://github.com/harishkumar101/MemoryLeakDetector.git` <br />
 
-Run the application as :<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;./a.out
+2. Compile and run the application as follows: <br />
+&nbsp;&nbsp;`$ make` <br />
+&nbsp;&nbsp;`$ ./garbagecollector` <br />
 
+3. Clean the binaries as follows: <br />
+&nbsp;&nbsp;`$ make clean` <br />
